@@ -5,5 +5,12 @@
     "password": { "ENV": "DATABASE_PASSWORD" },
     "host": { "ENV": "DATABASE_HOST" },
     "database": { "ENV": "DATABASE_DB" }
+  },
+  "test": {
+    "driver": "pg",
+    "user": { "ENV": "DATABASE_USER" },
+    "password": { "ENV": "DATABASE_PASSWORD" },
+    "host": { "ENV": "DATABASE_HOST" },
+    "database": { "ENV": "DATABASE_TEST_DB" }
   }
 }
