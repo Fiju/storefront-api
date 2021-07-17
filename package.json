@@ -7,7 +7,7 @@
     "test-db": "ENV=test db-migrate -e test up && jasmine-ts && db-migrate db:drop test",
     "build": "rimraf ./dist && tsc",
     "prod": "npm run build && node dist/app.js",
-    "dev": "nodemon src/app.ts"
+    "dev": "nodemon src/server.ts"
   },
   "repository": {
     "type": "git",
