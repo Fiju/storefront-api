@@ -20,7 +20,7 @@ const authenticate = async (
 ): Promise<void> => {
   const result: string = await user.authenticate(req.body);
   if (result === "") {
-    res.json("Invalid Crdentials provided");
+    res.json("Invalid Credentials provided");
     return;
   }
   res.json(result);
