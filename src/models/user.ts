@@ -52,8 +52,7 @@ export class User {
     return user;
   }
 
-  async show(user: IUser): Promise<IUser> {
-    const { id } = user;
+  async show(id: string): Promise<IUser> {
     const con: PoolClient = await Client.connect();
     const sql: string = "SELECT * FROM users WHERE id = $1";
     const result = await con.query(sql, [id]);

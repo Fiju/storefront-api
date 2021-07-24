@@ -35,19 +35,20 @@ const remove = async (
 };
 
 const show = async (
-  _req: express.Request,
+  req: express.Request,
   res: express.Response
 ): Promise<void> => {
-  const result: IUser = await user.show(res.locals.user);
+  const id = req.params.id;
+  const result: IUser = await user.show(id);
   res.json(result);
 };
 
 const userRoutes = (app: express.Application) => {
   app.post("/users", create);
   app.post("/users/authenticate", authenticate);
+  app.get("/users/:id", authorized, show);
   app.get("/users", authorized, index);
   app.delete("/users", authorized, remove);
-  app.get("/users", authorized, show);
 };
 
 export default userRoutes;
