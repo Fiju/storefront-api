@@ -20,8 +20,14 @@ const show = async (req: express.Request, res: express.Response) => {
   res.json(result);
 };
 
+const topFiveProducts = async (req: express.Request, res: express.Response) => {
+  const result = await product.getTopFiveProducts();
+  res.json(result);
+};
+
 const productRoutes = (app: express.Application) => {
   app.get("/products", index);
+  app.get("/products/popular", topFiveProducts);
   app.get("/products/:id", show);
   app.post("/products", authorized, create);
 };

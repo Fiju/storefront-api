@@ -1,4 +1,5 @@
 import Client from "../database";
+import { PoolClient } from "pg";
 
 export type IProduct = {
   id: Number;
@@ -43,6 +44,19 @@ export class Product {
       conn.release();
       const product = result.rows[0];
       return product;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async getTopFiveProducts(): Promise<IProduct[]> {
+    try {
+      const conn: PoolClient = await Client.connect();
+      const sql =
+        "SELECT * FROM products WHERE id IN (SELECT pp.product_id FROM (SELECT product_id, Count(*) FROM orders GROUP BY product_id LIMIT 5) AS pp);";
+      const result = await conn.query(sql);
+      conn.release();
+      return result.rows;
     } catch (error) {
       throw new Error(error);
     }
