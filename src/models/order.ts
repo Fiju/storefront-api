@@ -3,11 +3,11 @@ import Client from "../database";
 import { IUser } from "./user";
 
 export type IOrder = {
-  id: number;
+  id?: number;
   product_id: number;
   quantity: number;
   user_id: number;
-  status: number;
+  status?: number;
 };
 
 export class Order {

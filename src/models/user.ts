@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import Client from "../database";
 
 export type IUser = {
-  id: number;
+  id?: number;
   firstname: string;
   lastname: string;
   password: string;
@@ -18,7 +18,7 @@ export class User {
     return result.rows;
   }
 
-  async create(user: any): Promise<string> {
+  async create(user: IUser): Promise<string> {
     const { firstname, lastname, password } = user;
     const hashed = await bcrypt.hash(password + "abcd1234", 10);
     const con = await Client.connect();
@@ -31,7 +31,7 @@ export class User {
     return token;
   }
 
-  async authenticate(user: any): Promise<string> {
+  async authenticate(user: IUser): Promise<string> {
     const { firstname, password } = user;
     const con = await Client.connect();
     const sql = "SELECT * FROM users WHERE firstname = $1";
@@ -40,6 +40,14 @@ export class User {
     con.release();
     const isAuth = await bcrypt.compare(password + "abcd1234", usr.password);
     return isAuth ? jwt.sign(usr, process.env.SECRET_TOKEN as string) : "";
+  }
+
+  async getUserFromJWT(token: string): Promise<IUser> {
+    const user: IUser = jwt.verify(
+      token,
+      process.env.SECRET_TOKEN as string
+    ) as IUser;
+    return user;
   }
 
   async show(user: IUser): Promise<IUser> {

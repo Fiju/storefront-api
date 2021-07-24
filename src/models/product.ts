@@ -2,9 +2,9 @@ import Client from "../database";
 import { PoolClient } from "pg";
 
 export type IProduct = {
-  id: Number;
+  id?: Number;
   name: string;
-  price: Number;
+  price: string;
   category: string;
 };
 

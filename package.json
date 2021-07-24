@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test-db": "ENV=test db-migrate -e test up && jasmine-ts && db-migrate db:drop test",
+    "test-db": "db-migrate up -e test && cross-env ENV=test jasmine-ts && db-migrate reset -e test -m ./migrations",
     "build": "rimraf ./dist && tsc",
     "prod": "npm run build && node dist/app.js",
     "dev": "nodemon src/server.ts"
