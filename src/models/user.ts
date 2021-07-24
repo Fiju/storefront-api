@@ -22,7 +22,10 @@ export class User {
 
   async create(user: IUser): Promise<string> {
     const { firstname, lastname, password } = user;
-    const hashed = await bcrypt.hash(password + "abcd1234", 10);
+    const hashed = await bcrypt.hash(
+      password + process.env.BCRYPT_PASSWORD,
+      process.env.SALT_ROUNDS
+    );
     const con: PoolClient = await Client.connect();
     const sql: string =
       "INSERT INTO users(firstname, lastname, password) VALUES($1, $2, $3) RETURNING *";
@@ -40,7 +43,10 @@ export class User {
     const result = await con.query(sql, [firstname]);
     const usr = result.rows[0];
     con.release();
-    const isAuth = await bcrypt.compare(password + "abcd1234", usr.password);
+    const isAuth = await bcrypt.compare(
+      password + process.env.BCRYPT_PASSWORD,
+      usr.password
+    );
     return isAuth ? jwt.sign(usr, process.env.SECRET_TOKEN as string) : "";
   }
 
