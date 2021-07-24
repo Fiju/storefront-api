@@ -69,3 +69,9 @@ After gtting all of the above mentioned steps done you need to run
 `npm run dev`
 
 It will start the server on `localhost:3001`
+
+## Test
+
+To run the test us the following command:
+
+`npm run test`

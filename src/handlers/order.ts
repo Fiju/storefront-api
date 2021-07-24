@@ -28,8 +28,8 @@ const getCompletedUserOrders = async (
 
 const orderRoutes = (app: express.Application) => {
   app.post("/orders", authorized, create);
-  app.get("/orders/:user_id", authorized, getUserOrders);
   app.get("/orders/completed", authorized, getCompletedUserOrders);
+  app.get("/orders/:user_id", authorized, getUserOrders);
 };
 
 export default orderRoutes;

@@ -31,22 +31,37 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Product
 
-- id
-- name
-- price
-- [OPTIONAL] category
+```
+products (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  price NUMERIC NOT NULL,
+  category VARCHAR(25)
+);
+```
 
 #### User
 
-- id
-- firstName
-- lastName
-- password
+```
+users (
+id SERIAL PRIMARY KEY,
+firstname VARCHAR(25) NOT NULL,
+lastname VARCHAR(25) NOT NULL,
+password VARCHAR(100) NOT NULL
+);
+```
 
 #### Orders
 
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+```
+orders (
+  id SERIAL PRIMARY KEY,
+  product_id INTEGER NOT NULL,
+  quantity INTEGER NOT NULL,
+  user_id INTEGER NOT NULL,
+  status BIT NOT NULL,
+
+  FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+```

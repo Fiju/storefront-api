@@ -24,7 +24,7 @@ export class User {
     const { firstname, lastname, password } = user;
     const hashed = await bcrypt.hash(
       password + process.env.BCRYPT_PASSWORD,
-      process.env.SALT_ROUNDS
+      Number(process.env.SALT_ROUNDS) as number
     );
     const con: PoolClient = await Client.connect();
     const sql: string =
@@ -43,10 +43,12 @@ export class User {
     const result = await con.query(sql, [firstname]);
     const usr = result.rows[0];
     con.release();
-    const isAuth = await bcrypt.compare(
-      password + process.env.BCRYPT_PASSWORD,
-      usr.password
-    );
+    const isAuth = usr
+      ? await bcrypt.compare(
+          password + process.env.BCRYPT_PASSWORD,
+          usr.password
+        )
+      : null;
     return isAuth ? jwt.sign(usr, process.env.SECRET_TOKEN as string) : "";
   }
 

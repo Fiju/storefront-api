@@ -8,8 +8,8 @@ export default async (
 ) => {
   try {
     const authorizationHeader: string | undefined = req.headers.authorization;
-    const token: string =
-      authorizationHeader && authorizationHeader.split(" ")[1];
+    const token: string = (authorizationHeader &&
+      authorizationHeader.split(" ")[1]) as string;
     const decoded = jwt.verify(token, process.env.SECRET_TOKEN as string);
     res.locals.user = decoded;
     next();

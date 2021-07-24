@@ -51,9 +51,7 @@ describe("Testing Order model methods", () => {
       expect(result.quantity).toBe(5);
     });
     it("should get orders for user", async () => {
-      const result = await order.getUserOrders(
-        dummy_user.id as unknown as string
-      );
+      const result = await order.getUserOrders(String(dummy_user.id));
       expect(result.length).toBeGreaterThanOrEqual(1);
     });
   });
