@@ -12,7 +12,7 @@ const create = async (req: express.Request, res: express.Response) => {
 };
 
 const getUserOrders = async (req: express.Request, res: express.Response) => {
-  const user = res.locals.user;
+  const user = req.params.user_id;
   const result = await order.getUserOrders(user);
   res.json(result);
 };
@@ -28,7 +28,7 @@ const getCompletedUserOrders = async (
 
 const orderRoutes = (app: express.Application) => {
   app.post("/orders", authorized, create);
-  app.get("/orders", authorized, getUserOrders);
+  app.get("/orders/:user_id", authorized, getUserOrders);
   app.get("/orders/completed", authorized, getCompletedUserOrders);
 };
 

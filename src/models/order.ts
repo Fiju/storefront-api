@@ -1,3 +1,4 @@
+import { PoolClient } from "pg";
 import Client from "../database";
 import { IUser } from "./user";
 
@@ -13,7 +14,7 @@ export class Order {
   async create(data: IOrder): Promise<IOrder> {
     try {
       const { product_id, quantity, user_id } = data;
-      const conn = await Client.connect();
+      const conn: PoolClient = await Client.connect();
       const sql =
         "INSERT INTO orders(product_id, quantity, user_id, status) VALUES($1, $2, $3, $4) RETURNING *";
       const result = await conn.query(sql, [product_id, quantity, user_id, 0]);
@@ -25,10 +26,9 @@ export class Order {
     }
   }
 
-  async getUserOrders(user: IUser): Promise<IOrder[]> {
+  async getUserOrders(id: string): Promise<IOrder[]> {
     try {
-      const { id } = user;
-      const conn = await Client.connect();
+      const conn: PoolClient = await Client.connect();
       const sql = "SELECT * FROM orders WHERE user_id = $1";
       const result = await conn.query(sql, [id]);
       conn.release();
@@ -41,7 +41,7 @@ export class Order {
   async getCompletedUserOrders(user: IUser): Promise<IOrder[]> {
     try {
       const { id } = user;
-      const conn = await Client.connect();
+      const conn: PoolClient = await Client.connect();
       const sql = "SELECT * FROM orders WHERE user_id = $1 AND status = '1'";
       const result = await conn.query(sql, [id]);
       conn.release();
