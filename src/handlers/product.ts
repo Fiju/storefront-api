@@ -5,12 +5,12 @@ import { Product, IProduct } from "../models/product";
 const product = new Product();
 
 const create = async (req: express.Request, res: express.Response) => {
-  const result = await product.create(req.body);
+  const result: IProduct = await product.create(req.body);
   res.json(result);
 };
 
 const index = async (req: express.Request, res: express.Response) => {
-  const result = await product.index();
+  const result: IProduct[] = await product.index();
   res.json(result);
 };
 
@@ -21,7 +21,7 @@ const show = async (req: express.Request, res: express.Response) => {
 };
 
 const topFiveProducts = async (req: express.Request, res: express.Response) => {
-  const result = await product.getTopFiveProducts();
+  const result: IProduct[] = await product.getTopFiveProducts();
   res.json(result);
 };
 

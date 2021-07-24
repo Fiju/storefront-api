@@ -6,23 +6,23 @@ const order = new Order();
 
 const create = async (req: express.Request, res: express.Response) => {
   const user = res.locals.user;
-  const data = { user_id: user.id, ...req.body };
-  const result = await order.create(data);
+  const data: IOrder = { user_id: user.id, ...req.body };
+  const result: IOrder = await order.create(data);
   res.json(result);
 };
 
 const getUserOrders = async (req: express.Request, res: express.Response) => {
   const user = req.params.user_id;
-  const result = await order.getUserOrders(user);
+  const result: IOrder[] = await order.getUserOrders(user);
   res.json(result);
 };
 
 const getCompletedUserOrders = async (
-  req: express.Request,
+  _req: express.Request,
   res: express.Response
 ) => {
   const user = res.locals.user;
-  const result = await order.getCompletedUserOrders(user);
+  const result: IOrder[] = await order.getCompletedUserOrders(user);
   res.json(result);
 };
 

@@ -8,11 +8,12 @@ export default async (
 ) => {
   try {
     const authorizationHeader: string | undefined = req.headers.authorization;
-    const token: any = authorizationHeader && authorizationHeader.split(" ")[1];
+    const token: string =
+      authorizationHeader && authorizationHeader.split(" ")[1];
     const decoded = jwt.verify(token, process.env.SECRET_TOKEN as string);
     res.locals.user = decoded;
     next();
   } catch (error) {
-    res.status(401).json("Unauthorized");
+    res.status(401).json("Permission not allowed");
   }
 };
