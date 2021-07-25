@@ -36,6 +36,7 @@
     "@types/jasmine": "^3.8.1",
     "@types/jsonwebtoken": "^8.5.4",
     "@types/pg": "^8.6.1",
+    "cross-env": "^7.0.3",
     "jasmine": "^3.8.0",
     "jasmine-ts": "^0.4.0",
     "nodemon": "^2.0.12",
