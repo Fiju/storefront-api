@@ -1,5 +1,5 @@
 import {} from "jasmine";
-import { IOrder, Order } from "../order";
+import { IOrder, IProductOrderData, Order } from "../order";
 import { IUser, User } from "../user";
 import { IProduct, Product } from "../product";
 
@@ -40,15 +40,13 @@ describe("Testing Order model methods", () => {
       dummy_product = await product.create(data_product);
     });
     it("should create a new order", async () => {
-      const data = {
-        product_id: dummy_product.id,
-        quantity: 5,
-        user_id: dummy_user.id,
+      const data: IProductOrderData = {
+        products: [{ id: Number(dummy_product.id), quantity: 30 }],
+        user_id: Number(dummy_user.id),
       };
-      const result = await order.create(data as IOrder);
-      expect(result.product_id).toBe(dummy_product.id as number);
-      expect(result.user_id).toBe(dummy_user.id as number);
-      expect(result.quantity).toBe(5);
+      const result = await order.create(data);
+      expect(result.length).toBeGreaterThanOrEqual(1);
+      expect(result[0].product_id).toBe(Number(dummy_product.id));
     });
     it("should get orders for user", async () => {
       const result = await order.getUserOrders(String(dummy_user.id));

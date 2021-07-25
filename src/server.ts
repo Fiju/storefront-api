@@ -16,3 +16,5 @@ orderRoutes(app);
 app.listen(PORT, (): void => {
   console.log(`starting app on: ${PORT}`);
 });
+
+export default app;
