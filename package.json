@@ -28,6 +28,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.6.0",
+    "pg-format": "^1.0.4",
     "typescript": "^4.3.5"
   },
   "devDependencies": {
@@ -36,12 +37,15 @@
     "@types/jasmine": "^3.8.1",
     "@types/jsonwebtoken": "^8.5.4",
     "@types/pg": "^8.6.1",
+    "@types/pg-format": "^1.0.2",
+    "@types/supertest": "^2.0.11",
     "cross-env": "^7.0.3",
     "jasmine": "^3.8.0",
     "jasmine-ts": "^0.4.0",
     "nodemon": "^2.0.12",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
+    "supertest": "^6.1.4",
     "ts-node": "^10.1.0"
   }
 }

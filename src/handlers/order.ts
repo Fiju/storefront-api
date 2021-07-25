@@ -1,13 +1,13 @@
 import express from "express";
 import authorized from "../middlewares/authorized";
-import { Order, IOrder } from "../models/order";
+import { Order, IOrder, IProductOrderData } from "../models/order";
 
 const order = new Order();
 
 const create = async (req: express.Request, res: express.Response) => {
   const user = res.locals.user;
-  const data: IOrder = { user_id: user.id, ...req.body };
-  const result: IOrder = await order.create(data);
+  const data: IProductOrderData = { user_id: user.id, ...req.body };
+  const result: IOrder[] = await order.create(data);
   res.json(result);
 };
 
