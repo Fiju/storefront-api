@@ -1,7 +1,5 @@
 import request from "supertest";
 
-// import { Product } from "../../models/product";
-// import { User } from "../../models/user";
 import app from "../../server";
 
 describe("Testing Product handlers", () => {
@@ -38,10 +36,4 @@ describe("Testing Product handlers", () => {
     expect(res.status).toBe(200);
     expect(res.body.length).toBeGreaterThanOrEqual(1);
   });
-
-  // it("should check retrieve endpoint for popular products", async () => {
-  //   const res = await request(app).get(`/products/popular`);
-  //   expect(res.status).toBe(200);
-  //   expect(res.body.length).toBeGreaterThanOrEqual(1);
-  // });
 });
